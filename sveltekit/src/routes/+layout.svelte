@@ -8,15 +8,15 @@
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
 	// App Rail (sidebar)
+	import { page } from '$app/stores';
 	import { AppRail, AppRailTile, AppRailAnchor } from '@skeletonlabs/skeleton';
 	let currentTile: number = 0;
 </script>
 
 <!-- App Shell -->
 <AppShell>
-	<svelte:fragment slot="header">
 		<!-- App Bar -->
-		<AppBar>
+		<AppBar slot="header">
 			<svelte:fragment slot="lead">
 				<strong class="text-xl uppercase">Skeleton</strong>
 			</svelte:fragment>
@@ -47,29 +47,33 @@
 				</a>
 			</svelte:fragment>
 		</AppBar>
-	</svelte:fragment>
 
-	<AppRail>
-		<svelte:fragment slot="lead">
-			<AppRailAnchor href="/" >(icon)</AppRailAnchor>
-		</svelte:fragment>
+	<AppRail slot="sidebarLeft">
+		<AppRailAnchor href="/" selected={$page.url.pathname === '/'}>
+			<svelte:fragment slot="lead">
+				<i class="fa-solid fa-house"/>
+			</svelte:fragment>
+			<span>Home</span>
+		</AppRailAnchor>
+
+		<AppRailAnchor href="/wallet" selected={$page.url.pathname === '/wallet'}>
+			<svelte:fragment slot="lead">
+				<i class="fa-solid fa-wallet"/>
+			</svelte:fragment>
+			<span>Wallet</span>
+		</AppRailAnchor>
+
+		<AppRailAnchor href="/voting" selected={$page.url.pathname === '/voting'}>
+			<svelte:fragment slot="lead">
+				<i class="fa-solid fa-check-to-slot"/>
+			</svelte:fragment>
+			<span>Voting</span>
+		</AppRailAnchor>
 		
-		<!-- --- -->
-		<AppRailTile bind:group={currentTile} name="tile-1" value={0} title="tile-1">
-			<svelte:fragment slot="lead">(icon)</svelte:fragment>
-			<span>Tile 1</span>
-		</AppRailTile>
-		<AppRailTile bind:group={currentTile} name="tile-2" value={1} title="tile-2">
-			<svelte:fragment slot="lead">(icon)</svelte:fragment>
-			<span>Tile 2</span>
-		</AppRailTile>
-		<AppRailTile bind:group={currentTile} name="tile-3" value={2} title="tile-3">
-			<svelte:fragment slot="lead">(icon)</svelte:fragment>
-			<span>Tile 3</span>
-		</AppRailTile>
-		<!-- --- -->
 		<svelte:fragment slot="trail">
-			<AppRailAnchor href="/" target="_blank" title="Account">(icon)</AppRailAnchor>
+			<AppRailAnchor href="/" target="_blank" title="Account">
+				(icon)
+			</AppRailAnchor>
 		</svelte:fragment>
 	</AppRail>
 	<!-- Page Route Content -->
