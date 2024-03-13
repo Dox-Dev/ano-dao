@@ -11,40 +11,27 @@
 	import { page } from '$app/stores';
 	import { AppRail, AppRailTile, AppRailAnchor } from '@skeletonlabs/skeleton';
 	let currentTile: number = 0;
+
+	import Logo from '$lib/icons/logo.svelte';
+	import { LightSwitch } from '@skeletonlabs/skeleton';
 </script>
+
 
 <!-- App Shell -->
 <AppShell>
 		<!-- App Bar -->
 		<AppBar slot="header">
 			<svelte:fragment slot="lead">
-				<strong class="text-xl uppercase">Skeleton</strong>
+				<span class="badge-icon-lg"><Logo/></span>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://discord.gg/EXqV7W8MtY"
-					target="_blank"
-					rel="noreferrer"
+					class="btn-icon variant-ghost bg-transparent"
+					href="https://github.com/Dox-Dev/ano-dao"
 				>
-					Discord
+					<i class="fa-brands fa-github"></i>
 				</a>
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://twitter.com/SkeletonUI"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Twitter
-				</a>
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://github.com/skeletonlabs/skeleton"
-					target="_blank"
-					rel="noreferrer"
-				>
-					GitHub
-				</a>
+				<LightSwitch/>
 			</svelte:fragment>
 		</AppBar>
 
