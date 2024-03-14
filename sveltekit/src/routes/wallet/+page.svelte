@@ -1,6 +1,6 @@
 
 <script lang="ts">
-	import MetaMask from '$lib/icons/metamask.svelte';
+	import MetaMask from '$lib/icons/metamask-inverted.svelte';
 </script>
 
 <div class="container h-full mx-auto flex justify-center items-center">
