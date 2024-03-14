@@ -14,7 +14,6 @@ export default {
 				preset: [
 					{
 						name: 'gold-nouveau',
-						enhancements: true,
 					},
 				],
 			},
