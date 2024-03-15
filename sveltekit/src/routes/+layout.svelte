@@ -14,7 +14,14 @@
 
 	import Logo from '$lib/icons/logo.svelte';
 	import { LightSwitch } from '@skeletonlabs/skeleton';
+
+	import { Toast, getToastStore } from '@skeletonlabs/skeleton';
+	import type { ToastSettings, ToastStore } from '@skeletonlabs/skeleton';
+	import { initializeStores } from '@skeletonlabs/skeleton';
+	initializeStores();
 </script>
+
+<Toast />
 
 
 <!-- App Shell -->
