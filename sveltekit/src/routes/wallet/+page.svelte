@@ -8,6 +8,7 @@
 	const toastSettings: ToastSettings = {
 		message: 'MetaMask wallet has been connected',
 		timeout: 5000, // toast hides after 2 seconds
+		background: 'variant-filled-primary',
 	};
 
 	let userAddress = null;
