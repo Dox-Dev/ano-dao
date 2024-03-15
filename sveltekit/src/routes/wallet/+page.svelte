@@ -5,26 +5,46 @@
 	import { Toast, getToastStore } from '@skeletonlabs/skeleton';
 	import type { ToastSettings, ToastStore } from '@skeletonlabs/skeleton';
 	const toastStore = getToastStore();
-	const toastSettings: ToastSettings = {
-		message: 'MetaMask wallet has been connected',
-		timeout: 5000, // toast hides after 2 seconds
+	const successToast: ToastSettings = {
+		message: 'MetaMask wallet has been connected.',
 		background: 'variant-filled-primary',
 	};
+	const noWalletToast: ToastSettings = {
+		message: 'There doesn\'t seem to be any wallet extension installed.',
+		background: 'variant-filled-primary',
+	}
 
-	let userAddress = null;
+	import {ethers} from 'ethers';
+
 	async function connectWallet() {
-        if(window.ethereum) {
-            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts'})
-            if(accounts.length > 0) {
-                userAddress = accounts[0];
+		let signer = null;
+		let provider;
+		
+		if (window.ethereum == null) {
+		
+		    // If MetaMask is not installed, we use the default provider,
+		    // which is backed by a variety of third-party services (such
+		    // as INFURA). They do not have private keys installed,
+		    // so they only have read-only access
+		    console.log("MetaMask not installed; using read-only defaults")
+		    provider = ethers.getDefaultProvider()
 
-				toastStore.trigger(toastSettings);
-            }else{
-                alert('No accounts found');
-            }
-        }else{
-            alert('No ethereum wallet found');
-        }
+			toastStore.trigger(noWalletToast);
+		
+		} else {
+		
+		    // Connect to the MetaMask EIP-1193 object. This is a standard
+		    // protocol that allows Ethers access to make all read-only
+		    // requests through MetaMask.
+		    provider = new ethers.BrowserProvider(window.ethereum)
+		
+		    // It also provides an opportunity to request access to write
+		    // operations, which will be performed by the private key
+		    // that MetaMask manages for the user.
+		    signer = await provider.getSigner();
+		
+			toastStore.trigger(successToast);
+		}
     }
 
 </script>
