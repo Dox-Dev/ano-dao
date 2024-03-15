@@ -50,13 +50,6 @@
 			<span>Home</span>
 		</AppRailAnchor>
 
-		<AppRailAnchor href="/wallet" selected={$page.url.pathname === '/wallet'}>
-			<svelte:fragment slot="lead">
-				<i class="fa-solid fa-wallet"/>
-			</svelte:fragment>
-			<span>Wallet</span>
-		</AppRailAnchor>
-
 		<AppRailAnchor href="/voting" selected={$page.url.pathname === '/voting'}>
 			<svelte:fragment slot="lead">
 				<i class="fa-solid fa-check-to-slot"/>
@@ -65,9 +58,17 @@
 		</AppRailAnchor>
 		
 		<svelte:fragment slot="trail">
+			<AppRailAnchor href="/wallet" selected={$page.url.pathname === '/wallet'}>
+				<svelte:fragment slot="lead">
+					<i class="fa-solid fa-wallet"/>
+				</svelte:fragment>
+				<span>Wallet</span>
+			</AppRailAnchor>
+			<!--
 			<AppRailAnchor href="/" target="_blank" title="Account">
 				(icon)
 			</AppRailAnchor>
+			-->
 		</svelte:fragment>
 	</AppRail>
 	<!-- Page Route Content -->
