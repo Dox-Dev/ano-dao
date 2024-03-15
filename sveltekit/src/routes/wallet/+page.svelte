@@ -5,8 +5,9 @@
 	import { Toast, getToastStore } from '@skeletonlabs/skeleton';
 	import type { ToastSettings, ToastStore } from '@skeletonlabs/skeleton';
 	const toastStore = getToastStore();
-	const t: ToastSettings = {
+	const toastSettings: ToastSettings = {
 		message: 'MetaMask wallet has been connected',
+		timeout: 5000, // toast hides after 2 seconds
 	};
 
 	let userAddress = null;
@@ -16,9 +17,7 @@
             if(accounts.length > 0) {
                 userAddress = accounts[0];
 
-				toastStore.trigger({
-					message: 'MetaMask wallet has been connected',
-				});
+				toastStore.trigger(toastSettings);
             }else{
                 alert('No accounts found');
             }
