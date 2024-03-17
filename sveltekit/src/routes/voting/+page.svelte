@@ -18,6 +18,8 @@
 	// Property variables
 	let title: string = '';
 	let description: string = '';
+	let proposalID: number = 0;
+	let vote: boolean = false;
 
 	async function requestAccount() {
 		await window.ethereum.request({ method: "eth_requestAccounts" });
@@ -45,6 +47,29 @@
 		}
 	}
 
+	async function voteOnProposal() {
+		if(typeof window.ethereum === "undefined") return;
+
+		const provider = await new ethers.BrowserProvider(window.ethereum);
+		const signer = await provider.getSigner();
+
+		const contract = new ethers.Contract(
+				DAO_ADDRESS,
+				AnoDAO_json.abi,
+				signer
+		);
+
+		try {
+			console.log("vote: ", vote);
+			const res = await contract.vote(proposalID, vote);
+			let dao_contract = await contract.proposals(proposalID);
+			console.log("title of proposal: ", dao_contract.title);
+			console.log("description of proposal: ", dao_contract.description);
+		} catch (error) {
+			console.log("error: ", error);
+		}
+	}
+
 	// Vote
 
 	// Set proposal required price
@@ -64,6 +89,26 @@
 		<span class="h2">Description</span>
 		<textarea name="description" bind:value={description} class="textarea" rows="4" placeholder="Write your description here."/>
 	</label>
+	<button type="submit" class="btn btn-sm variant-filled mt-2">Submit</button>
+</form>
+
+<form method="POST" class="m-5 mt-10" on:submit|preventDefault={voteOnProposal}>
+	<h1 class="h1">Vote on a proposal</h1>
+	<label class="label mt-3">
+		<span class="h2">ProposalID</span>
+		<input name="title" bind:value={proposalID} class="input" type="text" placeholder="Write your title here."/>
+	</label>
+	<div class="space-y-2 mt-3">
+		<span class="h2">Yes/No?</span>
+		<label class="flex items-center space-x-2">
+			<input bind:group={vote} value={true} class="radio" type="radio" checked name="radio-direct" />
+			<p>Yes</p>
+		</label>
+		<label class="flex items-center space-x-2">
+			<input bind:group={vote} value={false} class="radio" type="radio" name="radio-direct" />
+			<p>No</p>
+		</label>
+	</div>
 	<button type="submit" class="btn btn-sm variant-filled mt-2">Submit</button>
 </form>
 
