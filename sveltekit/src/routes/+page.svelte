@@ -13,7 +13,7 @@
 	import QuestionIcon from '$lib/icons/question-mark.svelte';
 </script>
 
-<div class="container h-full mx-auto flex mt-5">
+<div class="container h-full m-5 flex">
 	<div class="flex flex-col">
 		<h2 class="h1">AnoDAO?!</h2>
 		<h2 class="h2 mt-5 mb-2">The Vision.</h2>
