@@ -28,6 +28,8 @@
 	let viewedYesVotes: number;
 	let viewedNoVotes: number;
 
+	let proposalPrice: number;
+
 	let creatorIdenticonHash: string;
 
 	async function requestAccount() {
@@ -111,6 +113,27 @@
 		}
 	}
 
+	async function setProposalPrice() {
+		if(typeof window.ethereum === "undefined") return;
+
+		const provider = await new ethers.BrowserProvider(window.ethereum);
+		const signer = await provider.getSigner();
+
+		const contract = new ethers.Contract(
+				DAO_ADDRESS,
+				AnoDAO_json.abi,
+				signer
+		);
+
+		try {
+			console.log("proposed proposalPrice: ", proposalPrice);
+			const res = await contract.setproposalRequired(proposalPrice);
+			console.log("new proposalRequired price: ", await contract.proposalRequired());
+		} catch (error) {
+			console.log("error: ", error);
+		}
+
+	}
 	// Vote
 
 	// Set proposal required price
@@ -193,6 +216,15 @@
 			<p>No</p>
 		</label>
 	</div>
+	<button type="submit" class="btn btn-sm variant-filled mt-2">Submit</button>
+</form>
+
+<form method="POST" class="m-5 mt-10" on:submit|preventDefault={setProposalPrice}>
+	<h1 class="h1">Set proposal creation price</h1>
+	<label class="label mt-3">
+		<span class="h2">Proposal Price</span>
+		<input name="proposalPrice" bind:value={proposalPrice} class="input" type="text" placeholder="Set a price for users to create proposals here."/>
+	</label>
 	<button type="submit" class="btn btn-sm variant-filled mt-2">Submit</button>
 </form>
 
