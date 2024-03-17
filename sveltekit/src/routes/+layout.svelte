@@ -35,6 +35,7 @@
 				<a
 					class="btn-icon variant-ghost bg-transparent"
 					href="https://github.com/Dox-Dev/ano-dao"
+					target="_blank"
 				>
 					<i class="fa-brands fa-github"></i>
 				</a>
