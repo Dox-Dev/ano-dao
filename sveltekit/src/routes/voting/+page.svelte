@@ -151,7 +151,7 @@
 			<textarea name="description" bind:value={description} class="textarea" rows="4" placeholder="Write your description here."/>
 		</label>
 		<span>
-			<button type="submit" class="btn btn-sm variant-filled mt-2">Submit</button>
+			<button type="submit" class="btn btn-sm variant-filled-primary mt-2">Submit</button>
 			{#if lastCreatedProposalID !== undefined}
 			Here is your newly created proposal's ID: <span class="text-primary-500">{lastCreatedProposalID}</span>
 			{/if}
@@ -164,8 +164,8 @@
 			<span class="h2">Proposal ID</span>
 			<input name="proposalID" bind:value={proposalID} class="input" type="text" placeholder="Write your proposal ID here."/>
 		</label>
-		<span><button type="button" on:click={viewProposal} class="btn btn-sm variant-filled mt-2">View</button>
-			<button type="button" on:click={hideProposal} class="btn btn-sm variant-filled mt-2">Hide</button></span>
+		<span><button type="button" on:click={viewProposal} class="btn btn-sm variant-filled-primary mt-2">View</button>
+			<button type="button" on:click={hideProposal} class="btn btn-sm variant-filled-primary mt-2">Hide</button></span>
 		{#if viewedCreator && viewedTitle && viewedDescription}
 		<!-- Note: I didn't check for viewedYesVotes and viewedNoVotes
 			 since there could be instances where no one has voted yet-->
@@ -220,7 +220,7 @@
 				<p>No</p>
 			</label>
 		</div>
-		<button type="submit" class="btn btn-sm variant-filled mt-2">Submit</button>
+		<button type="submit" class="btn btn-sm variant-filled-primary mt-2">Submit</button>
 	</form>
 	
 	<form method="POST" class="m-5 mt-10" on:submit|preventDefault={setProposalPrice}>
@@ -229,6 +229,6 @@
 			<span class="h2">Proposal Price</span>
 			<input name="proposalPrice" bind:value={proposalPrice} class="input" type="text" placeholder="Set a price for users to create proposals here."/>
 		</label>
-		<button type="submit" class="btn btn-sm variant-filled mt-2">Submit</button>
+		<button type="submit" class="btn btn-sm variant-filled-primary mt-2">Submit</button>
 	</form>
 </div>
