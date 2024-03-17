@@ -16,14 +16,15 @@
 	console.log(DAO_ADDRESS);
 
 	// Property variables
-	
+	let title: string = '';
+	let description: string = '';
 
 	async function requestAccount() {
 		await window.ethereum.request({ method: "eth_requestAccounts" });
 	}
 
 	// Create a proposal
-	async function createProposal() {
+	async function createAProposal() {
 		// check if Metamask extension exists
 		if(typeof window.ethereum !== "undefined") {
 			const provider = await new ethers.BrowserProvider(window.ethereum);
@@ -34,7 +35,9 @@
 				signer
 			);
 			try { // try to create the proposal
-				const res = await contract.createProposal("proposal1", "description1");
+				console.log('title: ', title);
+				console.log('description: ', description);
+				const res = await contract.createProposal(title, description);
 				console.log("result: ", res);
 			} catch (error) {
 				console.log("error: ", error);
@@ -51,12 +54,24 @@
 
 </script>
 
+<form method="POST" class="m-5" on:submit|preventDefault={createAProposal}>
+	<h1 class="h1">Create a proposal</h1>
+	<label class="label mt-3">
+		<span class="h2">Title</span>
+		<input name="title" bind:value={title} class="input" type="text" placeholder="Write your title here."/>
+	</label>
+	<label class="label mt-3">
+		<span class="h2">Description</span>
+		<textarea name="description" bind:value={description} class="textarea" rows="4" placeholder="Write your description here."/>
+	</label>
+	<button type="submit" class="btn btn-sm variant-filled mt-2">Submit</button>
+</form>
+
 <div class="container mx-auto flex justify-center items-center">
 	<div class="space-y-10 text-center flex flex-col items-center">
         <div class="p-2"/> <!-- space above 1st card-->
 		
-		<button on:click={requestAccount}>Connect Account</button>
-		<button on:click={createProposal}>test</button>
+		<!-- <button on:click={requestAccount}>Connect Account</button> -->
 
 		<!-- Card -->
         <div class="card p-4 size-1/2">
