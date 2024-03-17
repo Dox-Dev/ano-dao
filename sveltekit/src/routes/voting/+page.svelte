@@ -5,7 +5,8 @@
 	//import useState from 'hooks.js';
 	import {ethers} from 'ethers';
 	import AnoDAO_json from "../../../../artifacts/contracts/AnoDAO.sol/AnoDAO.json";
-	import 'dotenv';
+
+	import {Identicon} from 'svelte-identicons'
 
 	import {
 		PUBLIC_DAO_ADDRESS,
@@ -26,6 +27,8 @@
 	let viewedDescription: string;
 	let viewedYesVotes: number;
 	let viewedNoVotes: number;
+
+	let creatorIdenticonHash: string;
 
 	async function requestAccount() {
 		await window.ethereum.request({ method: "eth_requestAccounts" });
@@ -73,6 +76,16 @@
 		viewedDescription = proposal.description;
 		viewedYesVotes = proposal.yes;
 		viewedNoVotes = proposal.no;
+
+		creatorIdenticonHash = viewedCreator;
+	}
+
+	async function hideProposal() {
+		viewedCreator = '';
+		viewedTitle = '';
+		viewedDescription = '';
+		viewedYesVotes = 0;
+		viewedNoVotes = 0;
 	}
 
 	async function voteOnProposal() {
@@ -124,26 +137,48 @@
 	<h1 class="h1">Vote on a proposal</h1>
 	<label class="label mt-3">
 		<span class="h2">Proposal ID</span>
-		<input name="title" bind:value={proposalID} class="input" type="text" placeholder="Write your title here."/>
+		<input name="proposalID" bind:value={proposalID} class="input" type="text" placeholder="Write your proposal ID here."/>
 	</label>
-	<button type="button" on:click={viewProposal} class="btn btn-sm variant-filled mt-2">View Proposal</button>
+	<span><button type="button" on:click={viewProposal} class="btn btn-sm variant-filled mt-2">View</button>
+		<button type="button" on:click={hideProposal} class="btn btn-sm variant-filled mt-2">Hide</button></span>
 	{#if viewedCreator && viewedTitle && viewedDescription}
 	<!-- Note: I didn't check for viewedYesVotes and viewedNoVotes
 		 since there could be instances where no one has voted yet-->
-		<div class="card p-4 size-1/2">
-			<header class="card-header">
-				<div>Creator: {viewedCreator}</div>
-				<div>Title: {viewedTitle}</div>
-				<div>Description: {viewedDescription}</div>
-				<div>Yes: {viewedYesVotes}</div>
-				<div>No: {viewedNoVotes}</div>
+		<div class="card p-4">
+			<header class="card-header text-4xl">
+				{viewedTitle}
 			</header>
 
 			<!-- Question/Proposal -->
-			<section class="p-4"></section>
+			<section class="p-4">
+				<!-- <div>CREATOR: {viewedCreator}</div> -->
+				<div>{viewedDescription}</div>
+				<div>
+					<i class="fa-solid fa-thumbs-up"/> {viewedYesVotes}
+					<i class="fa-solid fa-thumbs-down"/> {viewedNoVotes}
+				</div>
+			</section>
 
 			<!-- Options -->
-			<footer class="card-footer">
+			<footer class="p-4 flex justify-start items-center space-x-4">
+				<span>
+					<div class="flex-auto flex justify-between items-center">
+						<div class="mr-2">
+						<Identicon
+						seed={creatorIdenticonHash}
+						height={5}
+						width={5}
+						pixelSize={5}
+						numberOfColors={2}
+						symetry="central"
+						text={undefined}
+						textColor="#ffffff"
+						/>
+						</div>
+					
+						{viewedCreator}
+					</div>
+				</span>
 			</footer>
 		</div>
 	{/if}
