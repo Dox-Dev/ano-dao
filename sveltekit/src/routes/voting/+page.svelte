@@ -99,7 +99,7 @@
 <form method="POST" class="m-5 mt-10" on:submit|preventDefault={voteOnProposal}>
 	<h1 class="h1">Vote on a proposal</h1>
 	<label class="label mt-3">
-		<span class="h2">ProposalID</span>
+		<span class="h2">Proposal ID</span>
 		<input name="title" bind:value={proposalID} class="input" type="text" placeholder="Write your title here."/>
 	</label>
 	<div class="space-y-2 mt-3">
