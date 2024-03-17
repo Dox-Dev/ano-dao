@@ -20,6 +20,7 @@
 	let title: string = '';
 	let description: string = '';
 	let proposalID: number;
+	let lastCreatedProposalID: number;
 	let vote: boolean = false;
 
 	let viewedCreator: string;
@@ -56,6 +57,7 @@
 				console.log("result: ", res);
 
 				proposalID = await contract.proposalCounter();
+				lastCreatedProposalID = proposalID;
 			} catch (error) {
 				console.log("error: ", error);
 			}
@@ -150,7 +152,9 @@
 		</label>
 		<span>
 			<button type="submit" class="btn btn-sm variant-filled mt-2">Submit</button>
-			Here is your newly created proposal's ID: {proposalID}
+			{#if lastCreatedProposalID !== undefined}
+			Here is your newly created proposal's ID: <span class="text-primary-500">{lastCreatedProposalID}</span>
+			{/if}
 		</span>
 	</form>
 	
@@ -167,7 +171,9 @@
 			 since there could be instances where no one has voted yet-->
 			<div class="card p-4">
 				<header class="card-header text-4xl">
-					{viewedTitle}
+					<span class="text-primary-500">
+						{viewedTitle}
+					</span>
 				</header>
 			
 				<!-- Question/Proposal -->
