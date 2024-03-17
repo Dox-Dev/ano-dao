@@ -132,16 +132,11 @@
 		} catch (error) {
 			console.log("error: ", error);
 		}
-
 	}
-	// Vote
-
-	// Set proposal required price
-
-	// Be able to vote on proposal
-	//user.vote()
 
 </script>
+
+
 <div class="my-5">
 	<form method="POST" class="m-5" on:submit|preventDefault={createAProposal}>
 		<h1 class="h1">Create a proposal</h1>
@@ -153,7 +148,10 @@
 			<span class="h2">Description</span>
 			<textarea name="description" bind:value={description} class="textarea" rows="4" placeholder="Write your description here."/>
 		</label>
-		<button type="submit" class="btn btn-sm variant-filled mt-2">Submit</button>
+		<span>
+			<button type="submit" class="btn btn-sm variant-filled mt-2">Submit</button>
+			Here is your newly created proposal's ID: {proposalID}
+		</span>
 	</form>
 	
 	<form method="POST" class="m-5 mt-10" on:submit|preventDefault={voteOnProposal}>
