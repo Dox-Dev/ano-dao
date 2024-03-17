@@ -18,7 +18,7 @@
 	// Property variables
 	let title: string = '';
 	let description: string = '';
-	let proposalID: number = 0;
+	let proposalID: number;
 	let vote: boolean = false;
 
 	async function requestAccount() {
@@ -39,8 +39,12 @@
 			try { // try to create the proposal
 				console.log('title: ', title);
 				console.log('description: ', description);
+				console.log('proposalCounter (before): ', await contract.proposalCounter());
+
 				const res = await contract.createProposal(title, description);
 				console.log("result: ", res);
+
+				proposalID = await contract.proposalCounter();
 			} catch (error) {
 				console.log("error: ", error);
 			}
