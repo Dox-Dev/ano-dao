@@ -21,6 +21,12 @@
 	let proposalID: number;
 	let vote: boolean = false;
 
+	let viewedCreator: string;
+	let viewedTitle: string;
+	let viewedDescription: string;
+	let viewedYesVotes: number;
+	let viewedNoVotes: number;
+
 	async function requestAccount() {
 		await window.ethereum.request({ method: "eth_requestAccounts" });
 	}
@@ -49,6 +55,24 @@
 				console.log("error: ", error);
 			}
 		}
+	}
+
+	async function viewProposal() {
+		if(typeof window.ethereum === "undefined") return;
+
+		const provider = await new ethers.BrowserProvider(window.ethereum);
+		const contract = new ethers.Contract(
+				DAO_ADDRESS,
+				AnoDAO_json.abi,
+				provider,
+		);
+
+		const proposal = await contract.proposals(proposalID);
+		viewedCreator = proposal.creator;
+		viewedTitle = proposal.title;
+		viewedDescription = proposal.description;
+		viewedYesVotes = proposal.yes;
+		viewedNoVotes = proposal.no;
 	}
 
 	async function voteOnProposal() {
@@ -102,6 +126,27 @@
 		<span class="h2">Proposal ID</span>
 		<input name="title" bind:value={proposalID} class="input" type="text" placeholder="Write your title here."/>
 	</label>
+	<button type="button" on:click={viewProposal} class="btn btn-sm variant-filled mt-2">View Proposal</button>
+	{#if viewedCreator && viewedTitle && viewedDescription}
+	<!-- Note: I didn't check for viewedYesVotes and viewedNoVotes
+		 since there could be instances where no one has voted yet-->
+		<div class="card p-4 size-1/2">
+			<header class="card-header">
+				<div>Creator: {viewedCreator}</div>
+				<div>Title: {viewedTitle}</div>
+				<div>Description: {viewedDescription}</div>
+				<div>Yes: {viewedYesVotes}</div>
+				<div>No: {viewedNoVotes}</div>
+			</header>
+
+			<!-- Question/Proposal -->
+			<section class="p-4"></section>
+
+			<!-- Options -->
+			<footer class="card-footer">
+			</footer>
+		</div>
+	{/if}
 	<div class="space-y-2 mt-3">
 		<span class="h2">Yes/No?</span>
 		<label class="flex items-center space-x-2">
