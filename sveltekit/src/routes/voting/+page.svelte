@@ -1,7 +1,4 @@
-<script lang="ts">
-	import {AnoDAO__factory} from "../../../../typechain-types";
-	import type {AnoDAO} from "../../../../typechain-types";
-	
+<script lang="ts">	
 	//import useState from 'hooks.js';
 	import {ethers} from 'ethers';
 	import AnoDAO_json from "../../../../artifacts/contracts/AnoDAO.sol/AnoDAO.json";
