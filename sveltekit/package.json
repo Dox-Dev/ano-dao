@@ -13,6 +13,7 @@
     "@skeletonlabs/skeleton": "2.9.0",
     "@skeletonlabs/tw-plugin": "0.3.1",
     "@sveltejs/adapter-auto": "^3.0.0",
+    "@sveltejs/adapter-vercel": "next",
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "@types/node": "20.11.26",
@@ -27,6 +28,7 @@
     "tailwindcss": "3.4.1",
     "tslib": "^2.4.1",
     "typescript": "^5.0.0",
+    "vercel": "^33.6.1",
     "vite": "^5.0.3",
     "vite-plugin-tailwind-purgecss": "0.2.0"
   },
